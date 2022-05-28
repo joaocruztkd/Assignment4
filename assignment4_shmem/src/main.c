@@ -24,18 +24,6 @@
 #include <stdio.h>
 
 
-/** Size of stack area used by each thread (can be thread specific, if necessary)*/
-#define STACK_SIZE 1024
-
-/** Thread scheduling priority */
-#define thread_A_prio 1
-#define thread_B_prio 1
-#define thread_C_prio 1
-
-/** Therad periodicity (in ms)*/
-#define thread_A_period 1000
-
-
 /** ADC definitions and includes*/
 #include <hal/nrf_saadc.h>
 #define ADC_NID DT_NODELABEL(adc) 
@@ -49,14 +37,22 @@
 
 #define BUFFER_SIZE 1
 
-/* Other defines */
-/*#define TIMER_INTERVAL_MSEC 1000  Interval between ADC samples */
-
 /** Refer to dts file */
 #define GPIO0_NID DT_NODELABEL(gpio0) 
 #define PWM0_NID DT_NODELABEL(pwm0) 
 #define BOARDLED1 0x0d
-                
+
+/** Size of stack area used by each thread (can be thread specific, if necessary)*/
+#define STACK_SIZE 1024
+
+/** Thread scheduling priority */
+#define thread_A_prio 1
+#define thread_B_prio 1
+#define thread_C_prio 1
+
+/** Therad periodicity (in ms)*/
+#define thread_A_period 1000
+               
 
 /** Create thread stack space */
 K_THREAD_STACK_DEFINE(thread_A_stack, STACK_SIZE);
@@ -128,44 +124,8 @@ static int adc_sample(void)
 
 /* Main function */
 void main(void) {
-    
-    /* Welcome message */
-    printf("\n\r Illustration of the use of shmem + semaphores\n\r");
-    
-    /* Create and init semaphores */
-    k_sem_init(&sem_ab, 0, 1);
-    k_sem_init(&sem_bc, 0, 1);
-    
-    /* Create tasks */
-    thread_A_tid = k_thread_create(&thread_A_data, thread_A_stack,
-        K_THREAD_STACK_SIZEOF(thread_A_stack), thread_A_code,
-        NULL, NULL, NULL, thread_A_prio, 0, K_NO_WAIT);
 
-    thread_B_tid = k_thread_create(&thread_B_data, thread_B_stack,
-        K_THREAD_STACK_SIZEOF(thread_B_stack), thread_B_code,
-        NULL, NULL, NULL, thread_B_prio, 0, K_NO_WAIT);
-
-    thread_B_tid = k_thread_create(&thread_C_data, thread_C_stack,
-        K_THREAD_STACK_SIZEOF(thread_C_stack), thread_C_code,
-        NULL, NULL, NULL, thread_C_prio, 0, K_NO_WAIT);
-    
-    return;
-
-} 
-
-/* Thread code implementation */
-void thread_A_code(void *argA , void *argB, void *argC)
-{
-    /* Timing variables to control task periodicity */
-    int64_t fin_time=0, release_time=0;
-
-    /* Other variables */
     int err=0;
-    
-    printk("Thread A init (periodic)\n");
-
-    /* Compute next release instant */
-    release_time = k_uptime_get() + thread_A_period;
 
     /* ADC setup: bind and initialize */
     adc_dev = device_get_binding(DT_LABEL(ADC_NID));
@@ -180,9 +140,50 @@ void thread_A_code(void *argA , void *argB, void *argC)
     /* It is recommended to calibrate the SAADC at least once before use, and whenever the ambient temperature has changed by more than 10 °C */
     NRF_SAADC->TASKS_CALIBRATEOFFSET = 1;
 
+    
+    /* Welcome message */
+    printf("\n\r Illustration of the use of shmem + semaphores\n\r");
+    
+    /* Create and init semaphores */
+    k_sem_init(&sem_ab, 0, 1);
+    k_sem_init(&sem_bc, 0, 1);
+    
+    /* Create tasks */
+    thread_A_tid = k_thread_create(&thread_A_data, thread_A_stack,
+        K_THREAD_STACK_SIZEOF(thread_A_stack), thread_A_code,
+        NULL, NULL, NULL, thread_A_prio, 0, K_NO_WAIT);
+   
+    thread_B_tid = k_thread_create(&thread_B_data, thread_B_stack,
+        K_THREAD_STACK_SIZEOF(thread_B_stack), thread_B_code,
+        NULL, NULL, NULL, thread_B_prio, 0, K_NO_WAIT);
+   
+    thread_B_tid = k_thread_create(&thread_C_data, thread_C_stack,
+        K_THREAD_STACK_SIZEOF(thread_C_stack), thread_C_code,
+        NULL, NULL, NULL, thread_C_prio, 0, K_NO_WAIT);
+     
+    return;
+
+} 
+
+/* Thread code implementation */
+void thread_A_code(void *argA , void *argB, void *argC)
+{
+
+    int err=0;
+
+    /* Timing variables to control task periodicity */
+    int64_t fin_time=0, release_time=0;
+  
+    printk("Thread A init (periodic)\n");
+
+    /* Compute next release instant */
+    release_time = k_uptime_get() + thread_A_period;
+    
     /* Thread loop */
     while(1) {
         
+        printf("TA while \n\r");
+
         /* Get one sample, checks for errors and prints the values */
         err=adc_sample();
         if(err) {
@@ -191,28 +192,36 @@ void thread_A_code(void *argA , void *argB, void *argC)
         else {
             if(adc_sample_buffer[0] > 1023) {
                 printk("adc reading out of range\n\r");
-                printk("adc reading: raw:%4u / %4u mV: \n\r",adc_sample_buffer[0],(uint16_t)(1000*adc_sample_buffer[0]*((float)3/1023)));
             }
             else {
                 /* ADC is set to use gain of 1/4 and reference VDD/4, so input range is 0...VDD (3 V), with 10 bit resolution */
-                /*printk("adc reading: raw:%4u / %4u mV: \n\r",adc_sample_buffer[0],(uint16_t)(1000*adc_sample_buffer[0]*((float)3/1023)));*/
                 ab=adc_sample_buffer[0];
+                printk("adc reading: raw:%4u / %4u mV: \n\r",ab,(uint16_t)(1000*ab*((float)3/1023)));
+
             }
         }
-
-        /*ab=30;*/
+        printf("TA while 2\n\r");
 
         printk("Thread A set ab value to: %d \n",ab);  
         
         k_sem_give(&sem_ab);
        
+        printf("TA while 3\n\r");
+
         /* Wait for next release instant */ 
         fin_time = k_uptime_get();
-        if( fin_time < release_time) {
-            k_msleep(release_time - fin_time);
-            release_time += thread_A_period;
 
+        printf("TA while 3.1\n\r");
+
+        if( fin_time < release_time) {
+            printf("TA while if\n\r");
+            k_msleep(release_time - fin_time);
+            printf("TA while if 2\n\r");
+            release_time += thread_A_period;
+            printf("TA while if 3\n\r");
         }
+
+        printf("TA while 4\n\r");
     }
 
 }
@@ -244,7 +253,7 @@ void thread_B_code(void *argA , void *argB, void *argC)
 
         /** Prevent the initial zeros from messing up the average*/
         
-        for(i = 0; i<10;i++){
+        for(i = 0; i < 10; i++){
           //printk("Passou aqui v0.2\n\r");
             if(dados[i] != 0){
             //printk("Passou aqui v0.3\n\r");
@@ -253,22 +262,19 @@ void thread_B_code(void *argA , void *argB, void *argC)
             }
             else{
                 sum1=sum1;}
-        }
-        
+        }        
         Avg=sum1/cnt1;
         
         /** Choose the values that are not acording to the average*/
         
-        for(j=0;j<10;j++){
+        for(j = 0; j < 10; j++){
             if(dados[j] < (Avg - Avg*0.1) || dados[j] > (Avg + Avg*0.1))
                 sum2=sum2;
             else{
                 sum2 = sum2 + dados[j];
                 cnt2++;
             } 
-            j++;
-        }
-        
+        }        
         Avg=sum2/cnt2;
 
         bc=Avg;
