@@ -120,6 +120,7 @@ static int adc_sample(void)
 	if (ret) {
             printk("adc_read() failed with code %d\n", ret);
 	}	
+
 	return ret;
 }
 
@@ -131,11 +132,11 @@ void main(void) {
     /* Welcome message */
     printf("\n\r Illustration of the use of shmem + semaphores\n\r");
     
-    /** Create and init semaphores */
+    /* Create and init semaphores */
     k_sem_init(&sem_ab, 0, 1);
     k_sem_init(&sem_bc, 0, 1);
     
-    /** Create tasks */
+    /* Create tasks */
     thread_A_tid = k_thread_create(&thread_A_data, thread_A_stack,
         K_THREAD_STACK_SIZEOF(thread_A_stack), thread_A_code,
         NULL, NULL, NULL, thread_A_prio, 0, K_NO_WAIT);
@@ -155,7 +156,7 @@ void main(void) {
 /* Thread code implementation */
 void thread_A_code(void *argA , void *argB, void *argC)
 {
-    /** Timing variables to control task periodicity */
+    /* Timing variables to control task periodicity */
     int64_t fin_time=0, release_time=0;
 
     /* Other variables */
@@ -163,10 +164,10 @@ void thread_A_code(void *argA , void *argB, void *argC)
     
     printk("Thread A init (periodic)\n");
 
-    /** Compute next release instant */
+    /* Compute next release instant */
     release_time = k_uptime_get() + thread_A_period;
 
-    /** ADC setup: bind and initialize */
+    /* ADC setup: bind and initialize */
     adc_dev = device_get_binding(DT_LABEL(ADC_NID));
     if (!adc_dev) {
         printk("ADC device_get_binding() failed\n");
@@ -182,7 +183,7 @@ void thread_A_code(void *argA , void *argB, void *argC)
     /* Thread loop */
     while(1) {
         
-        /** Get one sample, checks for errors and prints the values */
+        /* Get one sample, checks for errors and prints the values */
         err=adc_sample();
         if(err) {
             printk("adc_sample() failed with error code %d\n\r",err);
@@ -190,6 +191,7 @@ void thread_A_code(void *argA , void *argB, void *argC)
         else {
             if(adc_sample_buffer[0] > 1023) {
                 printk("adc reading out of range\n\r");
+                printk("adc reading: raw:%4u / %4u mV: \n\r",adc_sample_buffer[0],(uint16_t)(1000*adc_sample_buffer[0]*((float)3/1023)));
             }
             else {
                 /* ADC is set to use gain of 1/4 and reference VDD/4, so input range is 0...VDD (3 V), with 10 bit resolution */
@@ -198,11 +200,13 @@ void thread_A_code(void *argA , void *argB, void *argC)
             }
         }
 
+        /*ab=30;*/
+
         printk("Thread A set ab value to: %d \n",ab);  
         
         k_sem_give(&sem_ab);
        
-        /** Wait for next release instant */ 
+        /* Wait for next release instant */ 
         fin_time = k_uptime_get();
         if( fin_time < release_time) {
             k_msleep(release_time - fin_time);
@@ -216,7 +220,7 @@ void thread_A_code(void *argA , void *argB, void *argC)
 void thread_B_code(void *argA , void *argB, void *argC)
 {
     /* Other variables */
-    int dados[9]={0,0,0,0,0,0,0,0,0}, sum1=0, sum2=0, cnt1=0, cnt2=0, Avg=0;
+    int dados[10]={0,0,0,0,0,0,0,0,0,0}, sum1=0, sum2=0, cnt1=0, cnt2=0, Avg=0;
     int i=0, j=0;
 
     printk("Thread B init (sporadic, waits on a semaphore by task A)\n");
@@ -227,7 +231,8 @@ void thread_B_code(void *argA , void *argB, void *argC)
 
         dados[0] = ab;
 
-        /** Rotates the array clockwise*/        
+        /** Rotates the array clockwise*/
+        
         for(int k = 0; k < 10; k++){    
            int l=0, x=0;                
            x = dados[9];    /* Stores the last element of the array*/           
@@ -237,61 +242,72 @@ void thread_B_code(void *argA , void *argB, void *argC)
            dados[0] = x;    /* Last element of the array will be added to the start of the array*/ 
         } 
 
-        /** Prevent the initial zeros from messing up the average*/        
-        for(i = 0; i < 10; i++){
+        /** Prevent the initial zeros from messing up the average*/
+        
+        for(i = 0; i<10;i++){
+          //printk("Passou aqui v0.2\n\r");
             if(dados[i] != 0){
+            //printk("Passou aqui v0.3\n\r");
                 sum1 = sum1 + dados[i];
                 cnt1++; 
             }
             else{
-                sum1=sum1;
-            }
-        }        
-        Avg=sum1/cnt1;
-        /*printk("First Avg: %d, sum1: %d, cnt1: %d \n", Avg, sum1, cnt1); */ 
+                sum1=sum1;}
+        }
         
-        /** Choose the values that are not acording to the average*/        
-        for(j = 0; j < 10; j++){
-            if(dados[j] < (Avg - Avg * 0.1) || dados[j] > (Avg + Avg * 0.1))
+        Avg=sum1/cnt1;
+        
+        /** Choose the values that are not acording to the average*/
+        
+        for(j=0;j<10;j++){
+            if(dados[j] < (Avg - Avg*0.1) || dados[j] > (Avg + Avg*0.1))
                 sum2=sum2;
             else{
                 sum2 = sum2 + dados[j];
                 cnt2++;
             } 
             j++;
-        }        
+        }
+        
         Avg=sum2/cnt2;
-        /*printk("Second Avg: %d, sum2: %d, cnt2: %d \n", Avg, sum2, cnt2);*/
 
         bc=Avg;
         printk("Thread B set bc value to: %d \n",bc);  
         k_sem_give(&sem_bc);        
-    }
+  }
 }
 
 void thread_C_code(void *argA , void *argB, void *argC)
 {
     /* Other variables */
+    /*long int nact = 0;*/
     const struct device *gpio0_dev;         /* Pointer to GPIO device structure */
     const struct device *pwm0_dev;          /* Pointer to PWM device structure */
     int ret=0;                              /* Generic return value variable */
     
     unsigned int pwmPeriod_us = 1000;       /* PWM priod in us */
-    
+    //unsigned int dcValue[]={0,33,66,100};   /* Duty-cycle in % */
+    //unsigned int dcIndex=0;                 /* DC Index */
 
-    /** Bind to GPIO 0 and PWM0 */
+    /* Bind to GPIO 0 and PWM0 */
     gpio0_dev = device_get_binding(DT_LABEL(GPIO0_NID));
     if (gpio0_dev == NULL) {
         printk("Error: Failed to bind to GPIO0\n\r");        
 	return;
     }
-        
+    /*else {
+        printk("Bind to GPIO0 successfull \n\r");        
+    }*/
+    
     pwm0_dev = device_get_binding(DT_LABEL(PWM0_NID));
     if (pwm0_dev == NULL) {
 	printk("Error: Failed to bind to PWM0\n r");
 	return;
     }
-    
+    /*else  {
+        printk("Bind to PWM0 successful\n\r");            
+    }*/
+
     printk("Thread C init (sporadic, waits on a semaphore by task B)\n");
 
     while(1) {
@@ -302,9 +318,10 @@ void thread_C_code(void *argA , void *argB, void *argC)
         if (ret) {
             printk("Error %d: failed to set pulse width\n", ret);
             return;
-        }       
-           
-        printk("Task C read bc value: %d\n",bc);        
-    }
+        }          
+        printk("Task C read bc value: %d\n",bc);
+
+        
+  }
 }
 
