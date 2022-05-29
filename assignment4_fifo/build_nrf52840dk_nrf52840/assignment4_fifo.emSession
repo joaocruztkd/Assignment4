@@ -40,7 +40,7 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="23" y="220" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../src/main.c" selected="1" top="210" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="35" y="162" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../src/main.c" selected="1" top="330" codecName="Default"/>
  </Files>
  <ARMCrossStudioWindow activeProject="zephyr/zephyr.elf(build)" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Common" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="" debugSearchPath="" autoConnectCapabilities="3711"/>
 </session>

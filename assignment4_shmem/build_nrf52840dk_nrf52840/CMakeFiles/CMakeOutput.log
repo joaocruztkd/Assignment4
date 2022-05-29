@@ -11,7 +11,7 @@ The output was:
 
 Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
 
-The C compiler identification is GNU, found in "C:/Users/Utilizador/ncs/SETR/assignment4/assignment4_shmem_help/build_nrf52840dk_nrf52840/CMakeFiles/3.20.5/CompilerIdC/CMakeCCompilerId.o"
+The C compiler identification is GNU, found in "C:/Users/Utilizador/ncs/SETR/assignment4/assignment4_shmem_new/build_nrf52840dk_nrf52840/CMakeFiles/3.20.5/CompilerIdC/CMakeCCompilerId.o"
 
 Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
 Compiler: C:/Users/Utilizador/ncs/v1.9.1/toolchain/opt/bin/arm-none-eabi-gcc.exe 
@@ -24,7 +24,7 @@ The output was:
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.o"
 
-The CXX compiler identification is GNU, found in "C:/Users/Utilizador/ncs/SETR/assignment4/assignment4_shmem_help/build_nrf52840dk_nrf52840/CMakeFiles/3.20.5/CompilerIdCXX/CMakeCXXCompilerId.o"
+The CXX compiler identification is GNU, found in "C:/Users/Utilizador/ncs/SETR/assignment4/assignment4_shmem_new/build_nrf52840dk_nrf52840/CMakeFiles/3.20.5/CompilerIdCXX/CMakeCXXCompilerId.o"
 
 Checking whether the ASM compiler is GNU using "--version" matched "(GNU assembler)|(GCC)|(Free Software Foundation)":
 arm-none-eabi-gcc.exe (GNU Tools for Arm Embedded Processors 9-2019-q4-major) 9.2.1 20191025 (release) [ARM/arm-9-branch revision 277599]

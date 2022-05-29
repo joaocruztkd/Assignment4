@@ -1,6 +1,6 @@
 zephyr/arch/arch/arm/core/aarch32/CMakeFiles/arch__arm__core__aarch32.dir/swap_helper.S.obj: \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/arch/arm/core/aarch32/swap_helper.S \
- C:/Users/Utilizador/ncs/SETR/assignment4/assignment4_shmem_help/build_nrf52840dk_nrf52840/zephyr/include/generated/autoconf.h \
+ C:/Users/Utilizador/ncs/SETR/assignment4/assignment4_shmem_new/build_nrf52840dk_nrf52840/zephyr/include/generated/autoconf.h \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/include/toolchain/zephyr_stdint.h \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/include/toolchain.h \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/include/toolchain/gcc.h \

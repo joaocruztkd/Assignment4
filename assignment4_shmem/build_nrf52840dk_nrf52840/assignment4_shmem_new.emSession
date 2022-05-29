@@ -1,7 +1,7 @@
 <!DOCTYPE CrossStudio_Session_File>
 <session>
  <Bookmarks/>
- <Breakpoints groups="" active_group="Breakpoints"/>
+ <Breakpoints groups="Breakpoints" active_group="Breakpoints"/>
  <ExecutionProfileWindow/>
  <FrameBufferWindow>
   <FrameBufferWindow bufferHeight="-1" addressSpace="" addressText="" bufferWidth="-1"/>
@@ -11,11 +11,12 @@
  <Memory3/>
  <Memory4/>
  <Project>
-  <ProjectSessionItem path="assignment4_shmem_help"/>
-  <ProjectSessionItem path="assignment4_shmem_help;build"/>
-  <ProjectSessionItem path="assignment4_shmem_help;build;all"/>
-  <ProjectSessionItem path="assignment4_shmem_help;build;app/libapp.a"/>
-  <ProjectSessionItem path="assignment4_shmem_help;build;app/libapp.a;C_COMPILER__app_"/>
+  <ProjectSessionItem path="assignment4_shmem_new"/>
+  <ProjectSessionItem path="assignment4_shmem_new;build"/>
+  <ProjectSessionItem path="assignment4_shmem_new;build;all"/>
+  <ProjectSessionItem path="assignment4_shmem_new;build;app/libapp.a"/>
+  <ProjectSessionItem path="assignment4_shmem_new;build;app/libapp.a;C_COMPILER__app_"/>
+  <ProjectSessionItem path="assignment4_shmem_new;build;zephyr/zephyr.elf"/>
  </Project>
  <Register1/>
  <Register2/>
@@ -40,7 +41,7 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="320" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../src/main.c" selected="1" top="300" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="35" y="164" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../src/main.c" selected="1" top="330" codecName="Default"/>
  </Files>
  <ARMCrossStudioWindow activeProject="zephyr/zephyr.elf(build)" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Common" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="" debugSearchPath="" autoConnectCapabilities="3711"/>
 </session>

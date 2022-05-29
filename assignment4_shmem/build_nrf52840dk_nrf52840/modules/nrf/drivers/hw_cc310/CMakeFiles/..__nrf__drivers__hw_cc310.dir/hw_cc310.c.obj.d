@@ -1,6 +1,6 @@
 modules/nrf/drivers/hw_cc310/CMakeFiles/..__nrf__drivers__hw_cc310.dir/hw_cc310.c.obj: \
  C:/Users/Utilizador/ncs/v1.9.1/nrf/drivers/hw_cc310/hw_cc310.c \
- C:/Users/Utilizador/ncs/SETR/assignment4/assignment4_shmem_help/build_nrf52840dk_nrf52840/zephyr/include/generated/autoconf.h \
+ C:/Users/Utilizador/ncs/SETR/assignment4/assignment4_shmem_new/build_nrf52840dk_nrf52840/zephyr/include/generated/autoconf.h \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/include/toolchain/zephyr_stdint.h \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/include/init.h \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/include/toolchain.h \

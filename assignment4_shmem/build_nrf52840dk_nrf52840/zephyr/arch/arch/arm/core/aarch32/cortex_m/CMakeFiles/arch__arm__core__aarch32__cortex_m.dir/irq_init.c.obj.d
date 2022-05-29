@@ -1,6 +1,6 @@
 zephyr/arch/arch/arm/core/aarch32/cortex_m/CMakeFiles/arch__arm__core__aarch32__cortex_m.dir/irq_init.c.obj: \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/arch/arm/core/aarch32/cortex_m/irq_init.c \
- C:/Users/Utilizador/ncs/SETR/assignment4/assignment4_shmem_help/build_nrf52840dk_nrf52840/zephyr/include/generated/autoconf.h \
+ C:/Users/Utilizador/ncs/SETR/assignment4/assignment4_shmem_new/build_nrf52840dk_nrf52840/zephyr/include/generated/autoconf.h \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/include/toolchain/zephyr_stdint.h \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/include/arch/cpu.h \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/include/sys/arch_interface.h \

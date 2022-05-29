@@ -1,6 +1,6 @@
-C:\Users\Utilizador\ncs\SETR\assignment4\assignment4_shmem_help\build_nrf52840dk_nrf52840\Kconfig\Kconfig.modules
-C:\Users\Utilizador\ncs\SETR\assignment4\assignment4_shmem_help\build_nrf52840dk_nrf52840\Kconfig\Kconfig.shield
-C:\Users\Utilizador\ncs\SETR\assignment4\assignment4_shmem_help\build_nrf52840dk_nrf52840\Kconfig\Kconfig.shield.defconfig
+C:\Users\Utilizador\ncs\SETR\assignment4\assignment4_shmem_new\build_nrf52840dk_nrf52840\Kconfig\Kconfig.modules
+C:\Users\Utilizador\ncs\SETR\assignment4\assignment4_shmem_new\build_nrf52840dk_nrf52840\Kconfig\Kconfig.shield
+C:\Users\Utilizador\ncs\SETR\assignment4\assignment4_shmem_new\build_nrf52840dk_nrf52840\Kconfig\Kconfig.shield.defconfig
 C:\Users\Utilizador\ncs\v1.9.1\modules\debug\TraceRecorder\kernelports\Zephyr\Kconfig
 C:\Users\Utilizador\ncs\v1.9.1\modules\debug\TraceRecorder\kernelports\Zephyr\streamports\ARM_ITM\Kconfig
 C:\Users\Utilizador\ncs\v1.9.1\modules\debug\TraceRecorder\kernelports\Zephyr\streamports\Jlink_RTT\Kconfig

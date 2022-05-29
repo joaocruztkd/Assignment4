@@ -1,6 +1,6 @@
 zephyr/drivers/pwm/CMakeFiles/drivers__pwm.dir/pwm_nrfx.c.obj: \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/drivers/pwm/pwm_nrfx.c \
- C:/Users/Utilizador/ncs/SETR/assignment4/assignment4_shmem_help/build_nrf52840dk_nrf52840/zephyr/include/generated/autoconf.h \
+ C:/Users/Utilizador/ncs/SETR/assignment4/assignment4_shmem_new/build_nrf52840dk_nrf52840/zephyr/include/generated/autoconf.h \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/include/toolchain/zephyr_stdint.h \
  C:/Users/Utilizador/ncs/v1.9.1/modules/hal/nordic/nrfx/drivers/include/nrfx_pwm.h \
  C:/Users/Utilizador/ncs/v1.9.1/modules/hal/nordic/nrfx/nrfx.h \

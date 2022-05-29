@@ -1,6 +1,6 @@
 zephyr/CMakeFiles/zephyr.dir/subsys/pm/constraint.c.obj: \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/subsys/pm/constraint.c \
- C:/Users/Utilizador/ncs/SETR/assignment4/assignment4_shmem_help/build_nrf52840dk_nrf52840/zephyr/include/generated/autoconf.h \
+ C:/Users/Utilizador/ncs/SETR/assignment4/assignment4_shmem_new/build_nrf52840dk_nrf52840/zephyr/include/generated/autoconf.h \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/include/toolchain/zephyr_stdint.h \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/include/zephyr.h \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/include/kernel.h \

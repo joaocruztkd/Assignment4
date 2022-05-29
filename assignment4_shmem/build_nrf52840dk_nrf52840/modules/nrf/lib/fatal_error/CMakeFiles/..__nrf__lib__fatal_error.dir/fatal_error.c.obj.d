@@ -1,6 +1,6 @@
 modules/nrf/lib/fatal_error/CMakeFiles/..__nrf__lib__fatal_error.dir/fatal_error.c.obj: \
  C:/Users/Utilizador/ncs/v1.9.1/nrf/lib/fatal_error/fatal_error.c \
- C:/Users/Utilizador/ncs/SETR/assignment4/assignment4_shmem_help/build_nrf52840dk_nrf52840/zephyr/include/generated/autoconf.h \
+ C:/Users/Utilizador/ncs/SETR/assignment4/assignment4_shmem_new/build_nrf52840dk_nrf52840/zephyr/include/generated/autoconf.h \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/include/toolchain/zephyr_stdint.h \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/include/arch/cpu.h \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/include/sys/arch_interface.h \

@@ -1,5 +1,5 @@
 zephyr/CMakeFiles/zephyr_final.dir/isr_tables.c.obj: zephyr/isr_tables.c \
- C:/Users/Utilizador/ncs/SETR/assignment4/assignment4_shmem_help/build_nrf52840dk_nrf52840/zephyr/include/generated/autoconf.h \
+ C:/Users/Utilizador/ncs/SETR/assignment4/assignment4_shmem_new/build_nrf52840dk_nrf52840/zephyr/include/generated/autoconf.h \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/include/toolchain/zephyr_stdint.h \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/include/toolchain.h \
  C:/Users/Utilizador/ncs/v1.9.1/zephyr/include/toolchain/gcc.h \
