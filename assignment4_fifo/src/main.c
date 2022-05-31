@@ -3,7 +3,7 @@
  *
  * In this program, there is thread A which is periodic, and the other two
  * are sporadic and synchronize via a fifo. 
- * Every 1ms, it's taken one sample from the ADC module. Then, it's calculated 
+ * Every 1s, it's taken one sample from the ADC module. Then, it's calculated 
  * the average between 10 samples and the outliers are discarded from the average value.
  * Afterwards, the PWM DC is set to the dutty-cycle that corresponds to the average value.
  * That is going to control the LED_1 intensity.
@@ -40,7 +40,7 @@
 #define thread_C_prio 1
 
 /** Therad periodicity (in ms)*/
-#define SAMP_PERIOD_MS 1       /** Set to have the same period as the PWM, 1ms*/   
+#define SAMP_PERIOD_MS 1000       /** Set to have a period of 1s*/   
 
 /** ADC definitions and includes*/
 #include <hal/nrf_saadc.h>
@@ -158,7 +158,7 @@ void main(void) {
 /** 
 * ADC module thread (periodic)
 *
-* Gets one sample per milisecond from Analog 1 and it
+* Gets one sample per second from Analog 1 and it
 * sets the data_ab to the value of that sample.This will 
 * be processed in the next thread. 
 *
@@ -314,7 +314,7 @@ void thread_C_code(void *argA , void *argB, void *argC)
     const struct device *pwm0_dev;          /** Pointer to PWM device structure */
     int ret=0;                              /** Generic return value variable */
     
-    unsigned int pwmPeriod_us = 1000;       /** PWM priod in us */
+    unsigned int pwmPeriod_us = 1000;       /** PWM period in us */
 
     printk("Thread C init (sporadic)\n");
     
