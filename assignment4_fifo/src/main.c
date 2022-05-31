@@ -1,7 +1,7 @@
  /** @file main.c
  * @brief Program that variates the intensity of a LED
  *
- * It's a flow diagram where thread A is periodic, and the other two
+ * In this program, there is thread A which is periodic, and the other two
  * are sporadic and synchronize via a fifo. 
  * Every 1ms, it's taken one sample from the ADC module. Then, it's calculated 
  * the average between 10 samples and the outliers are discarded from the average value.
